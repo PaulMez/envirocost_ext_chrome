@@ -5,21 +5,28 @@ function addCustomDiv() {
   // Create a new div element
   const div = document.createElement('div');
 
-  // Find the div on the page that contains the content you're looking for
-  const contentDiv = document.querySelector('#content');
+  // Find the shopping cart element on the page
+  const cart = document.querySelector('.cart'); // Replace with the class name of the shopping cart element
 
-  // Use a regular expression to find the text you're interested in
-  const regex = /Some regex pattern/g; // Replace with your own regular expression
-  const matches = regex.exec(contentDiv.innerHTML);
-  const matchedText = matches ? matches[0] : '';
+  // Extract the list of items from the cart element
+  const items = [];
+  const regex = /(?:<li>|<tr>).*?(?=<\/li>|<\/tr>)/gs;
+  const matches = cart.innerHTML.matchAll(regex);
+  for (const match of matches) {
+    const itemText = match[0].replace(/<(?:.|\n)*?>/gm, '').trim();
+    if (itemText !== '') {
+      items.push(itemText);
+    }
+  }
 
-  // Set the innerHTML of the new div to the matched text
-  div.innerHTML = `<h1>Matched Text:</h1><p>${matchedText}</p>`;
-
+  // Display the list of items in the new div element
+  const listItems = items.map(item => `<li>${item}</li>`).join('');
+  div.innerHTML = `<h1>Shopping Cart Items:</h1><ul>${listItems}</ul>`;
+  console.log(listItems);
   // Append the div to the body element
   body.appendChild(div);
 }
 
-// Call the addCustomDiv function when the page has finished loading
-window.addEventListener('load', addCustomDiv);
+// Call the addCustomDiv function after 5 seconds
+setTimeout(addCustomDiv, 3000);
 
