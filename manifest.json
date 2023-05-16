@@ -4,8 +4,7 @@
   "version": "1.0",
   "description": "extension that handles the API that connects to EnviroCost",
   "permissions": [
-    "activeTab",
-    "http://envirocost.australiaeast.cloudapp.azure.com/"
+    "activeTab"
   ],
   "background": {
     "service_worker": "background.js"
