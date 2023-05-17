@@ -25,13 +25,24 @@ function logMessage(message) {
            // If the sibling is a <p> element and its text is a number, replace its text
            if (siblingElement) {
               if (siblingElement.tagName.toLowerCase() === 'p') {
-                 siblingElement.innerText = value[1];
+                 siblingElement.innerText = "( " + value[1] + " )";
              }
            }
            // Otherwise, create a new <p> element and add it after the <a> element
            else {
                let newP = document.createElement('p');
-               newP.innerText = value[1];
+               newP.innerText = "( " + value[1] + " )";
+               newP.style.color = 'green';
+               newP.style.fontWeight = 'italic';
+                // Create an image element
+                let img = document.createElement('img');
+                // Set the image source
+                //img.src = 'Icon-16.png'; // Doesnt bloody work
+                img.src = chrome.runtime.getURL('Icon-32.png');
+                //img.style.marginTop = '5px';
+                img.style.verticalAlign = 'middle';
+                // Append the image to the <p> tag
+                newP.appendChild(img);
                element.parentNode.insertBefore(newP, element.nextSibling);
            }
         }
