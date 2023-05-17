@@ -10,11 +10,23 @@ function logMessage(message) {
   
   // Update the corresponding elements with the response data
   responseArray.forEach((value, index) => {
-    const element = document.querySelector(`.element-${index}`);
-    if (element) {
-      element.textContent = value;
-    }
-  });
+    // Select all elements with the class 'cart-item-name'
+    let elements = document.querySelectorAll('.cart-item-name');
+
+    // Iterate over the selected elements
+    elements.forEach((element) => {
+        // Check if the element's text matches value[0]
+        if (element.innerText === value[0]) {
+            // Replace the element's text with the concatenation of value[0] and value[1]
+           // Create a new <p> element
+           let newP = document.createElement('p');
+           // Set the <p> element's text to value[1]
+           newP.innerText = value[1];
+           // Insert the new <p> element after the <a> element
+           element.parentNode.insertBefore(newP, element.nextSibling);
+        }
+    });
+});
 }
 
 // Listen for messages from the background script
