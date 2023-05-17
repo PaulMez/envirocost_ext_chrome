@@ -19,11 +19,21 @@ function logMessage(message) {
         if (element.innerText === value[0]) {
             // Replace the element's text with the concatenation of value[0] and value[1]
            // Create a new <p> element
-           let newP = document.createElement('p');
-           // Set the <p> element's text to value[1]
-           newP.innerText = value[1];
-           // Insert the new <p> element after the <a> element
-           element.parentNode.insertBefore(newP, element.nextSibling);
+           // Get the sibling element following the <a> element
+           let siblingElement = element.nextElementSibling;
+
+           // If the sibling is a <p> element and its text is a number, replace its text
+           if (siblingElement) {
+              if (siblingElement.tagName.toLowerCase() === 'p') {
+                 siblingElement.innerText = value[1];
+             }
+           }
+           // Otherwise, create a new <p> element and add it after the <a> element
+           else {
+               let newP = document.createElement('p');
+               newP.innerText = value[1];
+               element.parentNode.insertBefore(newP, element.nextSibling);
+           }
         }
     });
 });
